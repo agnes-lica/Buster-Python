@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
-from .models import Movie
+from .models import Movie, MovieOrder
 from users.models import User
 from users.serializers import UserSerializer
 
@@ -19,8 +19,18 @@ class MovieSerializer(serializers.Serializer):
     
     
     def create(self, validated_data: dict) -> Movie:
-        print(":"*100)
-        print(validated_data["user"])
-        print(":"*100)
         movie_create = Movie.objects.create(**validated_data)
         return movie_create
+    
+    
+class MovieOrderSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    buyed_at = serializers.DateTimeField(read_only=True)
+    price = serializers.DecimalField(required=True,max_digits=8, decimal_places=2)
+    
+    title = serializers.CharField(read_only=True)
+    buyed_by = serializers.CharField(read_only=True)
+    
+    def create(self, validated_data: dict):
+        movie_order_create = MovieOrder.objects.create(**validated_data)
+        return movie_order_create
