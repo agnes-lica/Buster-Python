@@ -1,18 +1,18 @@
 from django.contrib.auth import authenticate
+from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView, Request, Response, status
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 
+from users.permissions import IsSelfOrAdmin
 from .serializers import UserSerializer, LoginSerializer
 from .models import User
 
 
 class RegisterView(APIView):
-    def get(self, request: Request) -> Response:
-        users = User.objects.all()
-        serializer = UserSerializer(users, many=True)
-        return Response(serializer.data)
+
 
     def post(self, request: Request) -> Response:
         serializer = UserSerializer(data=request.data)  # type: ignore
@@ -49,3 +49,17 @@ class LoginView(TokenObtainPairView):
         refresh = RefreshToken.for_user(user)
         token = {"refresh": str(refresh), "access": str(refresh.access_token)}        
         return Response(token, status.HTTP_200_OK)
+    
+class UserSearchView(APIView):
+    
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsSelfOrAdmin]
+    
+    def get(self, request: Request, user_id: int) -> Response:
+        
+        user = get_object_or_404(User, id=user_id)
+        self.check_object_permissions(request, user)
+        
+        serializer = UserSerializer(user)
+        
+        return Response(serializer.data)
