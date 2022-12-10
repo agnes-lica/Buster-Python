@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractBaseUser, AbstractUser
 from unittest.mock import patch, MagicMock
 
-# from users.models import User
+from users.models import User
 
 User: AbstractUser = get_user_model()
 
@@ -55,7 +55,8 @@ class UserViewsTestT1(APITestCase):
         }
 
         # STATUS CODE
-        response = self.client.post(self.BASE_URL, data=employee_data, format="json")
+        response = self.client.post(
+            self.BASE_URL, data=employee_data, format="json")
         expected_status_code = status.HTTP_201_CREATED
         result_status_code = response.status_code
         msg = (
@@ -84,7 +85,8 @@ class UserViewsTestT1(APITestCase):
 
         added_user = User.objects.get(id=1)
         msg = "Verifique se o password foi hasheado corretamente"
-        self.assertTrue(added_user.check_password(employee_data["password"]), msg)
+        self.assertTrue(added_user.check_password(
+            employee_data["password"]), msg)
 
     def test_non_employee_user_creation(self):
         employee_data = {
@@ -97,7 +99,8 @@ class UserViewsTestT1(APITestCase):
         }
 
         # STATUS CODE
-        response = self.client.post(self.BASE_URL, data=employee_data, format="json")
+        response = self.client.post(
+            self.BASE_URL, data=employee_data, format="json")
         expected_status_code = status.HTTP_201_CREATED
         result_status_code = response.status_code
         msg = (
@@ -126,7 +129,8 @@ class UserViewsTestT1(APITestCase):
 
         added_user = User.objects.get(id=1)
         msg = "Verifique se o password foi hasheado corretamente"
-        self.assertTrue(added_user.check_password(employee_data["password"]), msg)
+        self.assertTrue(added_user.check_password(
+            employee_data["password"]), msg)
 
     def test_non_unique_username_or_email_user_creation(self):
         user_data = {
@@ -142,7 +146,8 @@ class UserViewsTestT1(APITestCase):
         User.objects.create_user(**user_data)
 
         # STATUS CODE
-        response = self.client.post(self.BASE_URL, data=user_data, format="json")
+        response = self.client.post(
+            self.BASE_URL, data=user_data, format="json")
         expected_status_code = status.HTTP_400_BAD_REQUEST
         result_status_code = response.status_code
         msg = (
@@ -171,7 +176,8 @@ class UserViewsTestT1(APITestCase):
         msg = (
             "Verifique a mensagem de erro quando criando usuário com username repetido"
         )
-        self.assertEqual(expected_username_message, resulted_username_message, msg)
+        self.assertEqual(expected_username_message,
+                         resulted_username_message, msg)
 
         msg = "Verifique a mensagem de erro quando criando usuário com email repetido"
         self.assertEqual(expected_email_message, resulted_email_message, msg)
