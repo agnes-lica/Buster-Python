@@ -1,74 +1,102 @@
-# M5 - Kenzie Buster
+# Buster
 
-## Instalação dos pacotes de teste
+Projeto backend de uma plataforma de filmes.
 
-- Verifique se os pacotes `pytest` e/ou `pytest-testdox` estão instalados globalmente em seu sistema:
-```shell
-pip list
-```
-- Caso seja listado o `pytest` e/ou `pytest-testdox` e/ou `pytest-django` em seu ambiente global, utilize os seguintes comando para desinstalá-los globalmente:
-```shell
-pip uninstall pytest
-```
+O desafio é:
 
-```shell
-pip uninstall pytest-testdox
-```
+*"Você foi selecionado pelo gestor da sua empresa para desenvolver uma API com o intuito de fazer uma gestão de vendas de filmes que está querendo sair do papel e caneta e planilhas bagunçadas. Nesse projeto você criará uma aplicação para gerenciar usuários, filmes e compras, incluindo autenticação e permissões de rotas para diferentes tipos de usuário."*
 
-```shell
-pip uninstall pytest-django
-```
 
-A partir disso, prossiga com os passos:
 
-1. Crie seu ambiente virtual:
+## Stack utilizada
+
+Para o estudo foram escolhidas as tecnologias:
+
+**Back-end:** Python, Django, PostgreSQL.
+
+**Testes:** Pytest.
+
+**Ambiente:** Venv.
+## Rodando localmente
+
+Clone o projeto
+
 ```bash
-python -m venv venv
+  git clone git@github.com:agnes-lica/Buster-Python.git
 ```
 
-2. Ative seu venv:
+Entre no diretório do projeto
+
+```bash
+  cd KImoveis
+```
+
+Inicie o servidor
+
 ```bash
 # linux:
-source venv/bin/activate
+  source venv/bin/activate
 
 # windows:
-.\venv\Scripts\activate
+  .\venv\Scripts\activate 
 ```
 
-3. Instale o pacote `pytest-testdox`:
-```shell
-pip install pytest-testdox pytest-django
+Instale as dependências
+
+```bash
+  pip install -r requirements. txt
 ```
 
-5. Vá até o arquivo `pytest.ini` e modifique o nome do projeto `my_project_name.settings` para o nome do **seu_projeto**.settings (onde se encontra o settings.py)
+## Rodando os testes
 
-4. Agora é só rodar os testes no diretório principal do projeto:
-```shell
-pytest --testdox -vvs
+#### Rodar todos os testes
+```bash
+ pytest --testdox -vvs
 ```
 
+#### Rodar testes por tarefas
 
-
-## Rodando os testes de cada tarefa isoladamente
-
-Ao fim de cada tarefa será possível executar uma suite de testes direcionada àquela tarefa específica. Lembre-se de sempre estar com o **virtual enviroment (venv) ativado**.
-
-- Rodando testes da Tarefa 1:
-```python
-pytest --testdox -vvs tests/tarefas/t1/
+##### Tarefa 1
+```bash
+ pytest --testdox -vvs tests/tarefas/t1/
 ```
 
-- Rodando testes da Tarefa 2:
-```python
-pytest --testdox -vvs tests/tarefas/t2/
+##### Tarefa 2
+```bash 
+ pytest --testdox -vvs tests/tarefas/t2/
 ```
 
-- Rodando testes da Tarefa 3:
-```python
-pytest --testdox -vvs tests/tarefas/t3/
+##### Tarefa 3
+```bash 
+ pytest --testdox -vvs tests/tarefas/t3/
 ```
 
-- Rodando testes da Tarefa 4:
-```python
-pytest --testdox -vvs tests/tarefas/t4/
+##### Tarefa 4
+```bash
+ pytest --testdox -vvs tests/tarefas/t4/
 ```
+
+## Documentação da API
+
+#### Endpoints
+
+| Método   | Endpoint       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `POST`      | `/api/users/` | Criação de usuário|
+| `POST`      | `/api/users/login/` | Autenticação do usuário |
+| `GET`      | `/api/users/<int:user_id>/` | Busca de usuário por id |
+| `PATCH`      | `/api/users/<int:user_id>/` | Atualizar usuário |
+| `POST`      | `/api/movies/` | Criação de filme |
+| `GET`      | `/api/movies/` | Listagem de filme |
+| `GET`      | `/api/movies/<int:movie_id>/` | Busca de filme por id |
+| `DELETE`      | `/api/movies/<int:movie_id>/` | Deleção de filme |
+| `POST`      | `/api/movies/<int:movie_id>/orders/` | Criação de pedido |
+
+
+## Contato
+
+Para entrar em contato comigo me mande um e-mail ou uma mensagem nas redes sociais:
+
+- [github](https://www.github.com/agnes-lica)
+- [LinkedIn](https://www.linkedin.com/in/agnesmr/)
+- E-mail: agnes.lica@gmail.com
